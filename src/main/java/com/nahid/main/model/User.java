@@ -21,5 +21,5 @@ public class User {
     private UUID userId;
     private String userName;
     private String password;
-    private String root;
+    private String role;
 }
