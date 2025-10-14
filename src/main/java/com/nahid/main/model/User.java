@@ -19,7 +19,7 @@ public class User {
     @Id
     @GeneratedValue
     private UUID userId;
-    private String userName;
+    private String username;
     private String password;
     private String role;
 }

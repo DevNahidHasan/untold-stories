@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/home-page.css">
+
+    <title>Home Page</title>
+</head>
+<body>
+    <!-- Navbar -->
+    <div th:replace="fragments/navbar.html :: navbar"></div>
+
+    <!-- Main Container -->
+    <div class="container main-container">
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="fragments/footer.html :: footer"></div>
+
+</body>
+</html>
