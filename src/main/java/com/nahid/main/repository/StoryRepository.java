@@ -8,4 +8,6 @@ import java.util.UUID;
 
 public interface StoryRepository extends JpaRepository<Story, UUID> {
     List<Story> findStoriesByStoryForContaining(String storyFor);
+
+    Story findStoryByStoryId(UUID storyId);
 }

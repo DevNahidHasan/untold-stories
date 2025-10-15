@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -47,5 +48,9 @@ public class StoryService {
         }
 
         return storyList;
+    }
+
+    public Story getStoryById(UUID storyId){
+        return storyRepository.findStoryByStoryId(storyId);
     }
 }

@@ -10,9 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -42,6 +44,15 @@ public class AppController {
         model.addAttribute("storyList",storyList);
         model.addAttribute("searchQuery",searchQuery);
         return "home-page";
+    }
+
+    @GetMapping("/story/{storyId}")
+    public String storyDetails(@PathVariable UUID storyId, Model model){
+        Story story = storyService.getStoryById(storyId);
+        model.addAttribute("story",story);
+
+        return "story-page";
+
     }
 
 
