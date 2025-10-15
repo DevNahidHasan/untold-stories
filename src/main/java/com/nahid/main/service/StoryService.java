@@ -36,4 +36,16 @@ public class StoryService {
         }
 
     }
+
+    public List<Story> searchStoryByName(String storyFor){
+        List<Story> storyList = storyRepository.findStoriesByStoryForContaining(storyFor);
+
+        for (Story story : storyList){
+            String shortDescription = story.getDescription();
+            shortDescription = truncateDescription(shortDescription);
+            story.setDescription(shortDescription);
+        }
+
+        return storyList;
+    }
 }

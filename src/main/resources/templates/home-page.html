@@ -20,7 +20,7 @@
         <!-- Search Section -->
         <form th:action="@{/search}" method="get" id="search-form">
             <label for="search-input" class="hidden"></label>
-            <input type="text" id="search-input" name="searchQuery" placeholder="Search by name" required>
+            <input type="text" id="search-input" name="searchQuery" placeholder="Search by name" th:value="${searchQuery}" required>
             <button>Search</button>
         </form>
 
@@ -44,7 +44,7 @@
             </div>
         </div>
         <!-- Pagination Section -->
-        <div id="pagination">
+        <div id="pagination" th:if="${searchQuery == null}">
             <a th:if="${currentPage} > 0" th:href="@{'/home?page=' + ${currentPage - 1}}">Previous</a>
             <span th:text="'Page '+ ${currentPage +1 } + ' of ' + ${totalPages}"></span>
             <a th:if="${currentPage + 1} < ${totalPages}" th:href="@{'/home?page=' + ${currentPage + 1}}">Next</a>

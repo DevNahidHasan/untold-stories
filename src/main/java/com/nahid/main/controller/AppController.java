@@ -37,7 +37,13 @@ public class AppController {
 
     @GetMapping("/search")
     public String searchFeedback(@RequestParam String searchQuery, Model model){
+        List<Story> storyList = storyService.searchStoryByName(searchQuery);
 
+        model.addAttribute("storyList",storyList);
+        model.addAttribute("searchQuery",searchQuery);
+        return "home-page";
     }
+
+
 
 }
