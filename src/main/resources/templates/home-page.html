@@ -16,6 +16,27 @@
 
     <!-- Main Container -->
     <div class="container main-container">
+
+        <!-- Posts Section -->
+        <div th:each="story : ${storyList}" class="posts">
+
+            <div class="top-section">
+                <p th:text="${story.storyFor}"></p>
+                <p th:text="${#temporals.format(story.createdAt ,'dd MMM yyyy')}"></p>
+                <p th:if="${story.isPositive}" >Positive</p>
+                <p th:if="${!story.isPositive}" >Negative</p>
+            </div>
+
+            <div class="mid-section">
+                <p th:text="${story.title}" ></p>
+                <p th:text="${story.message}" ></p>
+            </div>
+
+            <div class="bottom-section">
+                <a th:href="@{'/story/'+ ${story.storyId}}">See Full Review</a>
+            </div>
+
+        </div>
     </div>
 
     <!-- Footer -->
