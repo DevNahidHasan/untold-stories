@@ -17,25 +17,37 @@
     <!-- Main Container -->
     <div class="container main-container">
 
+        <!-- Search Section -->
+        <form th:action="@{/search}" method="get" id="search-form">
+            <label for="search-input" class="hidden"></label>
+            <input type="text" id="search-input" name="searchQuery" placeholder="Search by name" required>
+            <button>Search</button>
+        </form>
+
         <!-- Posts Section -->
         <div th:each="story : ${storyList}" class="posts">
 
             <div class="top-section">
-                <p th:text="${story.storyFor}"></p>
-                <p th:text="${#temporals.format(story.createdAt ,'dd MMM yyyy')}"></p>
-                <p th:if="${story.isPositive}" >Positive</p>
-                <p th:if="${!story.isPositive}" >Negative</p>
+                <p th:text="${story.storyFor}" class="name"></p>
+                <p th:text="${#temporals.format(story.createdAt ,'dd MMM yyyy')}" class="date"></p>
+                <p th:if="${story.isPositive}" class="positive">Positive</p>
+                <p th:if="${!story.isPositive}" class="negative">Negative</p>
             </div>
 
             <div class="mid-section">
-                <p th:text="${story.title}" ></p>
-                <p th:text="${story.story}" ></p>
+                <p th:text="${story.title}" class="title"></p>
+                <p th:text="${story.description}" class="desc"></p>
             </div>
 
             <div class="bottom-section">
                 <a th:href="@{'/story/'+ ${story.storyId}}">See Full Review</a>
             </div>
-
+        </div>
+        <!-- Pagination Section -->
+        <div id="pagination">
+            <a th:if="${currentPage} > 0" th:href="@{'/home?page=' + ${currentPage - 1}}">Previous</a>
+            <span th:text="'Page '+ ${currentPage +1 } + ' of ' + ${totalPages}"></span>
+            <a th:if="${currentPage + 1} < ${totalPages}" th:href="@{'/home?page=' + ${currentPage + 1}}">Next</a>
         </div>
     </div>
 
