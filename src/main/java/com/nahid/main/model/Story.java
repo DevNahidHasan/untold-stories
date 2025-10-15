@@ -23,7 +23,7 @@ public class Story {
     private String storyBy;
     private String title;
     @Lob
-    private String message;
+    private String story;
     private boolean isPositive;
     private LocalDateTime createdAt;
 
