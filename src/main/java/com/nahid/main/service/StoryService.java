@@ -53,4 +53,9 @@ public class StoryService {
     public Story getStoryById(UUID storyId){
         return storyRepository.findStoryByStoryId(storyId);
     }
+
+    public void deleteStoryById(UUID storyId){
+        storyRepository.deleteById(storyId);
+    }
+
 }

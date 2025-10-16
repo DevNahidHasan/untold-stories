@@ -32,6 +32,10 @@
                 <p th:text="${#temporals.format(story.createdAt ,'dd MMM yyyy')}" class="date"></p>
                 <p th:if="${story.isPositive}" class="positive">Positive</p>
                 <p th:if="${!story.isPositive}" class="negative">Negative</p>
+                <form th:action="@{'/story/'+ ${story.storyId} +'/delete'}" method="post">
+                    <button type="submit" th:if="${isAdmin}" class="delete" onclick="return confirm('Do you want to Delete this Story ?')">Delete</button>
+                </form>
+
             </div>
 
             <div class="mid-section">
