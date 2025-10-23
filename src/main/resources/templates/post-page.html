@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/post-page.css}">
+    <title>Share Story Page</title>
+</head>
+<body>
+<!-- Navbar -->
+<div th:replace="fragments/navbar.html :: navbar"></div>
+
+<!-- Main Container -->
+<div class="main-container container">
+    <h1>Share a Feedback</h1>
+
+    <form th:object="${story}" th:action="@{/story}" method="POST" id="story-form">
+
+        <label for="storyFor">Story About</label>
+        <input type="text" th:field="*{storyFor}" id="storyFor" required>
+
+        <label for="title">Story title</label>
+        <input type="text" th:field="*{title}" id="title" required>
+
+        <label>Is this story positive?</label>
+
+        <div id="radio-btn">
+
+            <label><input type="radio" th:field="*{isPositive}" th:value="True" required >&nbsp; Positive</label>
+            <label><input type="radio" th:field="*{isPositive}" th:value="False" required >&nbsp; Negative</label>
+
+        </div>
+
+        <label for="description">Description</label>
+        <textarea th:field="*{description}" id="description" rows="8" required>  </textarea>
+
+        <button type="submit">Submit</button>
+    </form>
+
+</div>
+
+<!-- Footer -->
+<div th:replace="fragments/footer.html :: footer"></div>
+</body>
+</html>

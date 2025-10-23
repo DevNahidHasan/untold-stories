@@ -9,4 +9,4 @@ VALUES
 insert into user_table(user_id,username,password,role)
 values
 ('79d96e2a-b9c3-4bbd-950d-63452b282644', 'root',	'$2a$10$ZMKzPyiFvAl8kDZS4mPFk.KrHBQ18jhs5Tj8/xBPbyQ5wUzw7hSyq','ROLE_USER'),
-('79d96e2a-b9c3-4bbd-950d-63452b282644', 'admin',	'$2a$10$ZMKzPyiFvAl8kDZS4mPFk.KrHBQ18jhs5Tj8/xBPbyQ5wUzw7hSyq','ROLE_ADMIN');
+('79d96e2a-b9c3-4bbd-950d-63452b282645', 'admin',	'$2a$10$ZMKzPyiFvAl8kDZS4mPFk.KrHBQ18jhs5Tj8/xBPbyQ5wUzw7hSyq','ROLE_ADMIN');

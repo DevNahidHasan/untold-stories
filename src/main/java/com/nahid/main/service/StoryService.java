@@ -70,4 +70,7 @@ public class StoryService {
         storyRepository.deleteById(storyId);
     }
 
+    public void saveStory(Story story) {
+        storyRepository.save(story);
+    }
 }

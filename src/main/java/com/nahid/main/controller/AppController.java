@@ -10,11 +10,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,6 +41,19 @@ public class AppController {
         return "home-page";
     }
 
+    @GetMapping("/user-dashboard")
+    public String userDashboardPage(Model model, HttpServletRequest httpServletRequest){
+
+        //System.out.println("in user dashboard controller");
+
+        String username = httpServletRequest.getUserPrincipal().getName();
+
+        List<Story> storyList = storyService.searchStoryByUser(username);
+
+        model.addAttribute("storyList",storyList);
+        return "user-dashboard-page";
+    }
+
     @GetMapping("/search")
     public String searchStory(@RequestParam String searchQuery, Model model){
         List<Story> storyList = storyService.searchStoryByName(searchQuery);
@@ -60,6 +71,8 @@ public class AppController {
         return "story-page";
 
     }
+
+
 
     @PostMapping("/story/{storyId}/delete")
     public String deleteStory(@PathVariable UUID storyId, HttpServletRequest httpServletRequest){
@@ -82,17 +95,21 @@ public class AppController {
 //        return "redirect:/";
     }
 
-    @GetMapping("/user-dashboard")
-    public String userDashboardPage(Model model, HttpServletRequest httpServletRequest){
+    @GetMapping("/story")
+    public String postStoryPage(Model model){
+        model.addAttribute("story",new Story());
+        return "post-page";
+    }
 
-        //System.out.println("in user dashboard controller");
-
+    @PostMapping("/story")
+    public String saveStory(@ModelAttribute Story story, HttpServletRequest httpServletRequest)  {
         String username = httpServletRequest.getUserPrincipal().getName();
+        LocalDateTime currentTime = LocalDateTime.now();
+        story.setStoryBy(username);
+        story.setCreatedAt(currentTime);
 
-        List<Story> storyList = storyService.searchStoryByUser(username);
-
-        model.addAttribute("storyList",storyList);
-        return "user-dashboard-page";
+        storyService.saveStory(story);
+        return "redirect:/user-dashboard";
     }
 
 

@@ -24,7 +24,7 @@ public class Story {
     private String title;
     @Lob
     private String description;
-    private boolean isPositive;
+    private Boolean isPositive;
     private LocalDateTime createdAt;
 
 }
