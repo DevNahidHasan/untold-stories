@@ -7,7 +7,11 @@ import java.util.List;
 import java.util.UUID;
 
 public interface StoryRepository extends JpaRepository<Story, UUID> {
-    List<Story> findStoriesByStoryForContaining(String storyFor);
+
+//TODO - ContainingIgnoreCase
+    List<Story> findStoriesByStoryForContainingIgnoreCase(String storyFor);
+
+    List<Story> findStoriesByStoryBy(String storyBy);
 
     Story findStoryByStoryId(UUID storyId);
 }

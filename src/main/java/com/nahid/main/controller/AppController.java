@@ -62,9 +62,37 @@ public class AppController {
     }
 
     @PostMapping("/story/{storyId}/delete")
-    public String deleteStory(@PathVariable UUID storyId){
+    public String deleteStory(@PathVariable UUID storyId, HttpServletRequest httpServletRequest){
         storyService.deleteStoryById(storyId);
-        return "redirect:/";
+
+//        if (httpServletRequest.isUserInRole("ADMIN")){
+//            return "redirect:/";
+//        }else if (httpServletRequest.isUserInRole("USER")){
+//            System.out.println("In else if");
+//            return "redirect:/user-dashboard";
+//        }
+
+        if (httpServletRequest.isUserInRole("USER")){
+            return "redirect:/user-dashboard";
+        }else {
+
+            return "redirect:/";
+        }
+
+//        return "redirect:/";
+    }
+
+    @GetMapping("/user-dashboard")
+    public String userDashboardPage(Model model, HttpServletRequest httpServletRequest){
+
+        //System.out.println("in user dashboard controller");
+
+        String username = httpServletRequest.getUserPrincipal().getName();
+
+        List<Story> storyList = storyService.searchStoryByUser(username);
+
+        model.addAttribute("storyList",storyList);
+        return "user-dashboard-page";
     }
 
 

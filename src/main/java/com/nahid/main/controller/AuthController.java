@@ -50,9 +50,11 @@ public class AuthController {
 
     @GetMapping("/dashboard")
     public String dashboardPage(HttpServletRequest httpServletRequest){
+        System.out.println("In dashboard controller");
         if (httpServletRequest.isUserInRole("ADMIN")){
             return "redirect:/";
         }else if (httpServletRequest.isUserInRole("USER")){
+            System.out.println("In else if");
             return "redirect:/user-dashboard";
         }
 

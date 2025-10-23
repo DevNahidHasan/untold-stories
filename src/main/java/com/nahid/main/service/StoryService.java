@@ -39,7 +39,19 @@ public class StoryService {
     }
 
     public List<Story> searchStoryByName(String storyFor){
-        List<Story> storyList = storyRepository.findStoriesByStoryForContaining(storyFor);
+        List<Story> storyList = storyRepository.findStoriesByStoryForContainingIgnoreCase(storyFor);
+
+        for (Story story : storyList){
+            String shortDescription = story.getDescription();
+            shortDescription = truncateDescription(shortDescription);
+            story.setDescription(shortDescription);
+        }
+
+        return storyList;
+    }
+
+    public List<Story> searchStoryByUser(String storyBy){
+        List<Story> storyList = storyRepository.findStoriesByStoryBy(storyBy);
 
         for (Story story : storyList){
             String shortDescription = story.getDescription();

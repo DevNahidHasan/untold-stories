@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/user-dashboard-page.css">
+
+    <title>User Dashboard Page</title>
+</head>
+<body>
+    <!-- Navbar -->
+    <div th:replace="fragments/navbar.html :: navbar"></div>
+
+    <!-- Main Container -->
+    <div class="container main-container">
+        <h1>User Dashboard Page</h1>
+
+        <!-- Posts Section -->
+        <div th:each="story : ${storyList}" class="posts">
+
+            <div class="top-section">
+
+                <p th:text="${story.storyFor}" class="name"></p>
+                <p th:text="${#temporals.format(story.createdAt ,'dd MMM yyyy')}" class="date"></p>
+                <p th:if="${story.isPositive}" class="positive">Positive</p>
+                <p th:if="${!story.isPositive}" class="negative">Negative</p>
+                <form th:action="@{'/story/'+ ${story.storyId} +'/edit'}" method="get">
+                    <button type="submit"  class="edit">Edit</button>
+                </form>
+                <form th:action="@{'/story/'+ ${story.storyId} +'/delete'}" method="post">
+                    <button type="submit"  class="delete" onclick="return confirm('Do you want to Delete this Story ?')">Delete</button>
+                </form>
+
+            </div>
+
+            <div class="mid-section">
+                <p th:text="${story.title}" class="title"></p>
+                <p th:text="${story.description}" class="desc"></p>
+            </div>
+
+            <div class="bottom-section">
+                <a th:href="@{'/story/'+ ${story.storyId}}">See Full Story</a>
+            </div>
+        </div>
+
+        <!-- Pagination Section -->
+<!--        <div id="pagination" th:if="${searchQuery == null}">-->
+<!--            <a th:if="${currentPage} > 0" th:href="@{'/home?page=' + ${currentPage - 1}}">Previous</a>-->
+<!--            <span th:text="'Page '+ ${currentPage +1 } + ' of ' + ${totalPages}"></span>-->
+<!--            <a th:if="${currentPage + 1} < ${totalPages}" th:href="@{'/home?page=' + ${currentPage + 1}}">Next</a>-->
+<!--        </div>-->
+
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="fragments/footer.html :: footer"></div>
+
+</body>
+</html>
