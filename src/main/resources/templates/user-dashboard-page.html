@@ -12,7 +12,7 @@
 </head>
 <body>
     <!-- Navbar -->
-    <div th:replace="fragments/navbar.html :: navbar"></div>
+    <div th:replace="fragments/navbar.html :: navbar" ></div>
 
     <!-- Main Container -->
     <div class="container main-container">
@@ -27,7 +27,7 @@
                 <p th:text="${#temporals.format(story.createdAt ,'dd MMM yyyy')}" class="date"></p>
                 <p th:if="${story.isPositive}" class="positive">Positive</p>
                 <p th:if="${!story.isPositive}" class="negative">Negative</p>
-                <form th:action="@{'/story/'+ ${story.storyId} +'/edit'}" method="get">
+                <form th:action="@{'/user/story/'+ ${story.storyId} +'/edit'}" method="get">
                     <button type="submit"  class="edit">Edit</button>
                 </form>
                 <form th:action="@{'/story/'+ ${story.storyId} +'/delete'}" method="post">

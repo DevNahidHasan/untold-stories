@@ -55,7 +55,7 @@ public class AuthController {
             return "redirect:/";
         }else if (httpServletRequest.isUserInRole("USER")){
             System.out.println("In else if");
-            return "redirect:/user-dashboard";
+            return "redirect:/user/dashboard";
         }
 
         return "redirect:/";

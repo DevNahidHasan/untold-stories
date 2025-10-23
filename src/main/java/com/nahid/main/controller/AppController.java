@@ -40,8 +40,9 @@ public class AppController {
 
         return "home-page";
     }
-
-    @GetMapping("/user-dashboard")
+//---------------------------------------------------------------------
+// "user dashboard" only for user
+    @GetMapping("/user/dashboard")
     public String userDashboardPage(Model model, HttpServletRequest httpServletRequest){
 
         //System.out.println("in user dashboard controller");
@@ -62,15 +63,16 @@ public class AppController {
         model.addAttribute("searchQuery",searchQuery);
         return "home-page";
     }
-
-    @GetMapping("/story")
+//------------------------------------------------------------------------------------
+// "Save Shared story" "only for user" get controller and post controller
+    @GetMapping("/user/story")
     public String postStoryPage(Model model){
         model.addAttribute("story",new Story());
         model.addAttribute("mode","SUBMIT");
         return "post-page";
     }
 
-    @PostMapping("/story")
+    @PostMapping("/user/story")
     public String saveStory(@ModelAttribute Story story, HttpServletRequest httpServletRequest)  {
         String username = httpServletRequest.getUserPrincipal().getName();
         LocalDateTime currentTime = LocalDateTime.now();
@@ -80,9 +82,9 @@ public class AppController {
         storyService.saveStory(story);
         return "redirect:/user-dashboard";
     }
-
-
-    @GetMapping("/story/{storyId}/edit")
+//------------------------------------------------------------------------------------------
+// "edit story" "only for user" ,get and post controller
+    @GetMapping("/user/story/{storyId}/edit")
     public String editStory(@PathVariable UUID storyId, Model model){
 
         Story story = storyService.getStoryById(storyId);
@@ -93,7 +95,7 @@ public class AppController {
 
     }
 
-    @PostMapping("/story/{storyId}/edit")
+    @PostMapping("/user/story/{storyId}/edit")
     public String doEditStory(@PathVariable UUID storyId, @ModelAttribute Story story, HttpServletRequest httpServletRequest){
 
         String username = httpServletRequest.getUserPrincipal().getName();
@@ -106,7 +108,8 @@ public class AppController {
         return "redirect:/user-dashboard";
 
     }
-
+//--------------------------------------------------------------------
+// "delete story"  for both user and admin
     @PostMapping("/story/{storyId}/delete")
     public String deleteStory(@PathVariable UUID storyId, HttpServletRequest httpServletRequest){
         storyService.deleteStoryById(storyId);
@@ -128,6 +131,8 @@ public class AppController {
 //        return "redirect:/";
     }
 
+//--------------------------------------------------------------------------
+// "see full story" for both user and admin
     @GetMapping("/story/{storyId}")
     public String storyDetails(@PathVariable UUID storyId, Model model){
         Story story = storyService.getStoryById(storyId);

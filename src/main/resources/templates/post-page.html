@@ -17,7 +17,7 @@
 <div class="main-container container">
     <h1>Share your Story</h1>
 
-    <form th:object="${story}" th:action="@{ ${mode} == 'UPDATE' ? '/story/' + ${story.storyId} + '/edit' : '/story'}"
+    <form th:object="${story}" th:action="@{ ${mode} == 'UPDATE' ? '/user/story/' + ${story.storyId} + '/edit' : '/user/story'}"
           method="POST" id="story-form">
 
         <label for="storyFor">Story About</label>

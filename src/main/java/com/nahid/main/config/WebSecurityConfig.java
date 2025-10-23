@@ -32,8 +32,8 @@ public class WebSecurityConfig {
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
 
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
-                        .requestMatchers("/user/**").hasAnyAuthority("USER","ADMIN")
+                        .requestMatchers("/user/**").hasAnyAuthority("ROLE_USER")
+                        .requestMatchers("/story/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
                         .anyRequest().permitAll())
 
                 .formLogin(formLoginConfigurer -> formLoginConfigurer
