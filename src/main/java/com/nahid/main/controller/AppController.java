@@ -63,16 +63,49 @@ public class AppController {
         return "home-page";
     }
 
-    @GetMapping("/story/{storyId}")
-    public String storyDetails(@PathVariable UUID storyId, Model model){
-        Story story = storyService.getStoryById(storyId);
-        model.addAttribute("story",story);
+    @GetMapping("/story")
+    public String postStoryPage(Model model){
+        model.addAttribute("story",new Story());
+        model.addAttribute("mode","SUBMIT");
+        return "post-page";
+    }
 
-        return "story-page";
+    @PostMapping("/story")
+    public String saveStory(@ModelAttribute Story story, HttpServletRequest httpServletRequest)  {
+        String username = httpServletRequest.getUserPrincipal().getName();
+        LocalDateTime currentTime = LocalDateTime.now();
+        story.setStoryBy(username);
+        story.setCreatedAt(currentTime);
 
+        storyService.saveStory(story);
+        return "redirect:/user-dashboard";
     }
 
 
+    @GetMapping("/story/{storyId}/edit")
+    public String editStory(@PathVariable UUID storyId, Model model){
+
+        Story story = storyService.getStoryById(storyId);
+        model.addAttribute("story",story);
+        model.addAttribute("mode","UPDATE");
+
+        return "post-page";
+
+    }
+
+    @PostMapping("/story/{storyId}/edit")
+    public String doEditStory(@PathVariable UUID storyId, @ModelAttribute Story story, HttpServletRequest httpServletRequest){
+
+        String username = httpServletRequest.getUserPrincipal().getName();
+        LocalDateTime currentTime = LocalDateTime.now();
+        story.setStoryId(storyId);
+        story.setStoryBy(username);
+        story.setCreatedAt(currentTime);
+
+        storyService.saveStory(story);
+        return "redirect:/user-dashboard";
+
+    }
 
     @PostMapping("/story/{storyId}/delete")
     public String deleteStory(@PathVariable UUID storyId, HttpServletRequest httpServletRequest){
@@ -95,22 +128,16 @@ public class AppController {
 //        return "redirect:/";
     }
 
-    @GetMapping("/story")
-    public String postStoryPage(Model model){
-        model.addAttribute("story",new Story());
-        return "post-page";
+    @GetMapping("/story/{storyId}")
+    public String storyDetails(@PathVariable UUID storyId, Model model){
+        Story story = storyService.getStoryById(storyId);
+        model.addAttribute("story",story);
+
+        return "story-page";
+
     }
 
-    @PostMapping("/story")
-    public String saveStory(@ModelAttribute Story story, HttpServletRequest httpServletRequest)  {
-        String username = httpServletRequest.getUserPrincipal().getName();
-        LocalDateTime currentTime = LocalDateTime.now();
-        story.setStoryBy(username);
-        story.setCreatedAt(currentTime);
 
-        storyService.saveStory(story);
-        return "redirect:/user-dashboard";
-    }
 
 
 
