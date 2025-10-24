@@ -33,7 +33,7 @@ public class WebSecurityConfig {
 
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/user/**").hasAnyAuthority("ROLE_USER")
-                        .requestMatchers("/story/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
+                        .requestMatchers("/story/{storyId}/delete").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
                         .anyRequest().permitAll())
 
                 .formLogin(formLoginConfigurer -> formLoginConfigurer

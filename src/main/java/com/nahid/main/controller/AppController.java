@@ -40,6 +40,15 @@ public class AppController {
 
         return "home-page";
     }
+
+    @GetMapping("/search")
+    public String searchStory(@RequestParam String searchQuery, Model model){
+        List<Story> storyList = storyService.searchStoryByName(searchQuery);
+
+        model.addAttribute("storyList",storyList);
+        model.addAttribute("searchQuery",searchQuery);
+        return "home-page";
+    }
 //---------------------------------------------------------------------
 // "user dashboard" only for user
     @GetMapping("/user/dashboard")
@@ -55,14 +64,7 @@ public class AppController {
         return "user-dashboard-page";
     }
 
-    @GetMapping("/search")
-    public String searchStory(@RequestParam String searchQuery, Model model){
-        List<Story> storyList = storyService.searchStoryByName(searchQuery);
 
-        model.addAttribute("storyList",storyList);
-        model.addAttribute("searchQuery",searchQuery);
-        return "home-page";
-    }
 //------------------------------------------------------------------------------------
 // "Save Shared story" "only for user" get controller and post controller
     @GetMapping("/user/story")
@@ -80,7 +82,7 @@ public class AppController {
         story.setCreatedAt(currentTime);
 
         storyService.saveStory(story);
-        return "redirect:/user-dashboard";
+        return "redirect:/user/dashboard";
     }
 //------------------------------------------------------------------------------------------
 // "edit story" "only for user" ,get and post controller
@@ -105,7 +107,7 @@ public class AppController {
         story.setCreatedAt(currentTime);
 
         storyService.saveStory(story);
-        return "redirect:/user-dashboard";
+        return "redirect:/user/dashboard";
 
     }
 //--------------------------------------------------------------------
@@ -122,7 +124,7 @@ public class AppController {
 //        }
 
         if (httpServletRequest.isUserInRole("USER")){
-            return "redirect:/user-dashboard";
+            return "redirect:/user/dashboard";
         }else {
 
             return "redirect:/";
@@ -132,7 +134,7 @@ public class AppController {
     }
 
 //--------------------------------------------------------------------------
-// "see full story" for both user and admin
+// "see full story" for everyone
     @GetMapping("/story/{storyId}")
     public String storyDetails(@PathVariable UUID storyId, Model model){
         Story story = storyService.getStoryById(storyId);
