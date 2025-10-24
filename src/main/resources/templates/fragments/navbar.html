@@ -16,7 +16,7 @@
     <div class="menu">
         <a href="/home">Home</a>
         <a href="/user/story" sec:authorize="hasRole('USER')">Share Story</a>
-        <a href="/user-dashboard" sec:authorize="hasRole('USER')">User Dashboard</a>
+        <a href="/user/dashboard" sec:authorize="hasRole('USER')">User Dashboard</a>
         <a href="/login" sec:authorize="!isAuthenticated()">Login</a>
         <a href="/logout" sec:authorize="isAuthenticated()">Logout</a>
     </div>
