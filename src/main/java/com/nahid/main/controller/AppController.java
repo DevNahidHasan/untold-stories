@@ -25,8 +25,7 @@ public class AppController {
     @GetMapping({"/","/home"})
     public String homePage(@RequestParam(defaultValue = "0") int page, Model model, HttpServletRequest httpServletRequest){
 
-        Pageable pageable = PageRequest.of(page
-                , 2);
+        Pageable pageable = PageRequest.of(page, 3);
 
         Page<Story> storyPage = storyService.getStories(pageable);
 
@@ -42,12 +41,25 @@ public class AppController {
     }
 
     @GetMapping("/search")
-    public String searchStory(@RequestParam String searchQuery, Model model){
-        List<Story> storyList = storyService.searchStoryByName(searchQuery);
+    public String searchStory(@RequestParam String searchQuery, @RequestParam(defaultValue = "0") int page, Model model){
+//        List<Story> storyList = storyService.searchStoryByName(searchQuery);
+//        model.addAttribute("storyList",storyList);
+//        model.addAttribute("searchQuery",searchQuery);
+//        return "home-page";
 
-        model.addAttribute("storyList",storyList);
+        Pageable pageable = PageRequest.of(page, 3);
+
+        Page<Story> storyPage = storyService.searchStoryByNamePageable(searchQuery,pageable);
+
+        model.addAttribute("storyList",storyPage.getContent());
+        model.addAttribute("totalPages",storyPage.getTotalPages());
+        model.addAttribute("currentPage",page);
         model.addAttribute("searchQuery",searchQuery);
+
         return "home-page";
+
+
+
     }
 //---------------------------------------------------------------------
 // "user dashboard" only for user
@@ -66,7 +78,7 @@ public class AppController {
 
 
 //------------------------------------------------------------------------------------
-// "Save Shared story" "only for user" get controller and post controller
+// "Share story and save" "only for user" get controller and post controller
     @GetMapping("/user/story")
     public String postStoryPage(Model model){
         model.addAttribute("story",new Story());

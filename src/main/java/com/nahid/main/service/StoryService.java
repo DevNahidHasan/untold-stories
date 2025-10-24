@@ -29,14 +29,19 @@ public class StoryService {
         return storyList;
     }
 
-    public String truncateDescription(String description){
-        if(description != null && description.length() > 200){
-            return description.substring(0,200) + "...";
-        }else {
-            return description;
+    public Page<Story> searchStoryByNamePageable(String storyFor, Pageable pageable){
+       Page<Story> storyList = storyRepository.findStoriesByStoryForContainingIgnoreCase(storyFor,pageable);
+
+        for (Story story : storyList){
+            String shortDescription = story.getDescription();
+            shortDescription = truncateDescription(shortDescription);
+            story.setDescription(shortDescription);
         }
 
+        return storyList;
     }
+
+
 
     public List<Story> searchStoryByName(String storyFor){
         List<Story> storyList = storyRepository.findStoriesByStoryForContainingIgnoreCase(storyFor);
@@ -49,6 +54,8 @@ public class StoryService {
 
         return storyList;
     }
+
+
 
     public List<Story> searchStoryByUser(String storyBy){
         List<Story> storyList = storyRepository.findStoriesByStoryBy(storyBy);
@@ -72,5 +79,14 @@ public class StoryService {
 
     public void saveStory(Story story) {
         storyRepository.save(story);
+    }
+
+    public String truncateDescription(String description){
+        if(description != null && description.length() > 200){
+            return description.substring(0,200) + "...";
+        }else {
+            return description;
+        }
+
     }
 }
