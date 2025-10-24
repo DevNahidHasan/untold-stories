@@ -77,7 +77,7 @@ public class AppController {
         String username = httpServletRequest.getUserPrincipal().getName();
 
         Pageable pageable = PageRequest.of(page, 3);
-
+        System.out.println("within user dashboard");
         Page<Story> storyPage = storyService.searchStoryByUserPageable(username, pageable);
 
         model.addAttribute("storyList",storyPage.getContent());
@@ -101,6 +101,7 @@ public class AppController {
 
     @PostMapping("/user/story")
     public String saveStory(@ModelAttribute Story story, HttpServletRequest httpServletRequest)  {
+
         String username = httpServletRequest.getUserPrincipal().getName();
         LocalDateTime currentTime = LocalDateTime.now();
         story.setStoryBy(username);
