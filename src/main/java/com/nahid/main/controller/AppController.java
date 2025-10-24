@@ -64,16 +64,29 @@ public class AppController {
 //---------------------------------------------------------------------
 // "user dashboard" only for user
     @GetMapping("/user/dashboard")
-    public String userDashboardPage(Model model, HttpServletRequest httpServletRequest){
+    public String userDashboardPage(@RequestParam(defaultValue = "0") int page, Model model, HttpServletRequest httpServletRequest){
 
         //System.out.println("in user dashboard controller");
+//        String username = httpServletRequest.getUserPrincipal().getName();
+//
+//        List<Story> storyList = storyService.searchStoryByUser(username);
+//
+//        model.addAttribute("storyList",storyList);
+//        return "user-dashboard-page";
 
         String username = httpServletRequest.getUserPrincipal().getName();
 
-        List<Story> storyList = storyService.searchStoryByUser(username);
+        Pageable pageable = PageRequest.of(page, 3);
 
-        model.addAttribute("storyList",storyList);
+        Page<Story> storyPage = storyService.searchStoryByUserPageable(username, pageable);
+
+        model.addAttribute("storyList",storyPage.getContent());
+        model.addAttribute("totalPages",storyPage.getTotalPages());
+        model.addAttribute("currentPage",page);
+
         return "user-dashboard-page";
+
+
     }
 
 

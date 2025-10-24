@@ -41,8 +41,6 @@ public class StoryService {
         return storyList;
     }
 
-
-
     public List<Story> searchStoryByName(String storyFor){
         List<Story> storyList = storyRepository.findStoriesByStoryForContainingIgnoreCase(storyFor);
 
@@ -54,7 +52,17 @@ public class StoryService {
 
         return storyList;
     }
+    public Page<Story> searchStoryByUserPageable(String username, Pageable pageable) {
+        Page<Story> storyList = storyRepository.findStoriesByStoryBy(username,pageable);
 
+        for (Story story : storyList){
+            String shortDescription = story.getDescription();
+            shortDescription = truncateDescription(shortDescription);
+            story.setDescription(shortDescription);
+        }
+
+        return storyList;
+    }
 
 
     public List<Story> searchStoryByUser(String storyBy){
@@ -89,4 +97,6 @@ public class StoryService {
         }
 
     }
+
+
 }

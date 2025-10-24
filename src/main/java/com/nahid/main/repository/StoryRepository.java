@@ -17,5 +17,7 @@ public interface StoryRepository extends JpaRepository<Story, UUID> {
 
     List<Story> findStoriesByStoryBy(String storyBy);
 
+    Page<Story> findStoriesByStoryBy(String storyBy, Pageable pageable);
+
     Story findStoryByStoryId(UUID storyId);
 }
