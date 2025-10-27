@@ -22,6 +22,7 @@ public class AppController {
 
     private final StoryService storyService;
 
+// homepage for Admin and visitors.
     @GetMapping({"/","/home"})
     public String homePage(@RequestParam(defaultValue = "0") int page, Model model, HttpServletRequest httpServletRequest){
 
@@ -29,16 +30,22 @@ public class AppController {
 
         Page<Story> storyPage = storyService.getStories(pageable);
 
-        if(page+1 > storyPage.getTotalPages()){
-            return "redirect:/";
-        }
+        int totalPages = storyPage.getTotalPages();
 
         model.addAttribute("storyList",storyPage.getContent());
-        model.addAttribute("totalPages",storyPage.getTotalPages());
+        model.addAttribute("totalPages",totalPages);
         model.addAttribute("currentPage",page);
 
         if (httpServletRequest.isUserInRole("ADMIN")){
             model.addAttribute("isAdmin",true);
+        }
+
+        if (totalPages == 0) {
+            return "home-page";
+        }
+
+        if(page+1 > storyPage.getTotalPages()){
+            return "redirect:/?page="+ (totalPages-1);
         }
 
         return "home-page";
@@ -56,12 +63,14 @@ public class AppController {
 
         Page<Story> storyPage = storyService.searchStoryByNamePageable(searchQuery,pageable);
 
+        int totalPages = storyPage.getTotalPages();
+
         if(page+1 > storyPage.getTotalPages()){
             return "redirect:/";
         }
 
         model.addAttribute("storyList",storyPage.getContent());
-        model.addAttribute("totalPages",storyPage.getTotalPages());
+        model.addAttribute("totalPages",totalPages);
         model.addAttribute("currentPage",page);
         model.addAttribute("searchQuery",searchQuery);
 
@@ -88,19 +97,29 @@ public class AppController {
 //        model.addAttribute("storyList",storyList);
 //        return "user-dashboard-page";
 
+//        System.out.println("within user dashboard");
+
         String username = httpServletRequest.getUserPrincipal().getName();
 
         Pageable pageable = PageRequest.of(page, 3);
-        System.out.println("within user dashboard");
+
         Page<Story> storyPage = storyService.searchStoryByUserPageable(username, pageable);
 
-        if(page+1 > storyPage.getTotalPages()){
-            return "redirect:/";
-        }
+        int totalPages = storyPage.getTotalPages();
+
+
 
         model.addAttribute("storyList",storyPage.getContent());
-        model.addAttribute("totalPages",storyPage.getTotalPages());
+        model.addAttribute("totalPages",totalPages);
         model.addAttribute("currentPage",page);
+
+        if (totalPages == 0) {
+            return "user-dashboard-page";
+        }
+
+        if(page+1 > storyPage.getTotalPages()){
+            return "redirect:/user/dashboard?page=" + (totalPages-1);
+        }
 
         return "user-dashboard-page";
 
@@ -157,7 +176,8 @@ public class AppController {
 //--------------------------------------------------------------------
 // "delete story"  for both user and admin
     @PostMapping("/story/{storyId}/delete")
-    public String deleteStory(@PathVariable UUID storyId, HttpServletRequest httpServletRequest){
+    public String deleteStory(@PathVariable UUID storyId, HttpServletRequest httpServletRequest,
+                              @RequestHeader(value = "Referer", required = false) String referer){
         storyService.deleteStoryById(storyId);
 
 //        if (httpServletRequest.isUserInRole("ADMIN")){
@@ -168,9 +188,17 @@ public class AppController {
 //        }
 
         if (httpServletRequest.isUserInRole("USER")){
-            return "redirect:/user/dashboard";
-        }else {
+            if (referer != null && !referer.isEmpty()) {
+                return "redirect:" + referer;
+            }
+            else {
+                return "redirect:/user/dashboard";
+            }
 
+        }else {
+            if (referer != null && !referer.isEmpty()) {
+                return "redirect:" + referer;
+            }
             return "redirect:/";
         }
 

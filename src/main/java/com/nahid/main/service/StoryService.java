@@ -61,7 +61,7 @@ public class StoryService {
 
     public Page<Story> searchStoryByUserPageable(String username, Pageable pageable) {
         username = hashUtil.hash(username);
-        System.out.println(username);
+//        System.out.println(username);
         Page<Story> storyList = storyRepository.findStoriesByStoryBy(username,pageable);
 
         for (Story story : storyList){
