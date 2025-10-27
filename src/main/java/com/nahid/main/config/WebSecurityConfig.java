@@ -44,6 +44,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/user/**").hasAnyAuthority("ROLE_USER")
                         .requestMatchers("/story/{storyId}/delete").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
+                        .requestMatchers("/h2-console/*").hasAnyAuthority("ROLE_ADMIN")
                         .anyRequest().permitAll())
 
                 .formLogin(formLoginConfigurer -> formLoginConfigurer

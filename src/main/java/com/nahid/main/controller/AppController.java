@@ -65,6 +65,10 @@ public class AppController {
         model.addAttribute("currentPage",page);
         model.addAttribute("searchQuery",searchQuery);
 
+        if (httpServletRequest.isUserInRole("ADMIN")){
+            model.addAttribute("isAdmin",true);
+        }
+
         return "home-page";
 
 
