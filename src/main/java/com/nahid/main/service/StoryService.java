@@ -24,7 +24,7 @@ public class StoryService {
     private final PasswordEncoder passwordEncoder;
 
     public Page<Story> getStories(Pageable pageable){
-        Page<Story> storyList = storyRepository.findAll(pageable);
+        Page<Story> storyList = storyRepository.findAllByOrderByCreatedAtDesc(pageable);
 
         for (Story story : storyList){
             String shortDescription = story.getDescription();
@@ -36,7 +36,7 @@ public class StoryService {
     }
 
     public Page<Story> searchStoryByNamePageable(String storyFor, Pageable pageable){
-       Page<Story> storyList = storyRepository.findStoriesByStoryForContainingIgnoreCase(storyFor,pageable);
+       Page<Story> storyList = storyRepository.findStoriesByStoryForContainingIgnoreCaseOrderByCreatedAtDesc(storyFor,pageable);
 
         for (Story story : storyList){
             String shortDescription = story.getDescription();
@@ -62,7 +62,7 @@ public class StoryService {
     public Page<Story> searchStoryByUserPageable(String username, Pageable pageable) {
         username = hashUtil.hash(username);
 //        System.out.println(username);
-        Page<Story> storyList = storyRepository.findStoriesByStoryBy(username,pageable);
+        Page<Story> storyList = storyRepository.findStoriesByStoryByOrderByCreatedAtDesc(username,pageable);
 
         for (Story story : storyList){
             String shortDescription = story.getDescription();

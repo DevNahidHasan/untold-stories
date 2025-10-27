@@ -20,4 +20,11 @@ public interface StoryRepository extends JpaRepository<Story, UUID> {
     Page<Story> findStoriesByStoryBy(String storyBy, Pageable pageable);
 
     Story findStoryByStoryId(UUID storyId);
+    
+    // Methods with sorting by createdAt DESC (latest to oldest)
+    Page<Story> findAllByOrderByCreatedAtDesc(Pageable pageable);
+    
+    Page<Story> findStoriesByStoryForContainingIgnoreCaseOrderByCreatedAtDesc(String storyFor, Pageable pageable);
+    
+    Page<Story> findStoriesByStoryByOrderByCreatedAtDesc(String storyBy, Pageable pageable);
 }
