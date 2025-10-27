@@ -29,6 +29,10 @@ public class AppController {
 
         Page<Story> storyPage = storyService.getStories(pageable);
 
+        if(page+1 > storyPage.getTotalPages()){
+            return "redirect:/";
+        }
+
         model.addAttribute("storyList",storyPage.getContent());
         model.addAttribute("totalPages",storyPage.getTotalPages());
         model.addAttribute("currentPage",page);
@@ -41,7 +45,8 @@ public class AppController {
     }
 
     @GetMapping("/search")
-    public String searchStory(@RequestParam String searchQuery, @RequestParam(defaultValue = "0") int page, Model model){
+    public String searchStory(@RequestParam String searchQuery, @RequestParam(defaultValue = "0") int page,
+                              Model model, HttpServletRequest httpServletRequest){
 //        List<Story> storyList = storyService.searchStoryByName(searchQuery);
 //        model.addAttribute("storyList",storyList);
 //        model.addAttribute("searchQuery",searchQuery);
@@ -50,6 +55,10 @@ public class AppController {
         Pageable pageable = PageRequest.of(page, 3);
 
         Page<Story> storyPage = storyService.searchStoryByNamePageable(searchQuery,pageable);
+
+        if(page+1 > storyPage.getTotalPages()){
+            return "redirect:/";
+        }
 
         model.addAttribute("storyList",storyPage.getContent());
         model.addAttribute("totalPages",storyPage.getTotalPages());
@@ -61,6 +70,7 @@ public class AppController {
 
 
     }
+
 //---------------------------------------------------------------------
 // "user dashboard" only for user
     @GetMapping("/user/dashboard")
@@ -79,6 +89,10 @@ public class AppController {
         Pageable pageable = PageRequest.of(page, 3);
         System.out.println("within user dashboard");
         Page<Story> storyPage = storyService.searchStoryByUserPageable(username, pageable);
+
+        if(page+1 > storyPage.getTotalPages()){
+            return "redirect:/";
+        }
 
         model.addAttribute("storyList",storyPage.getContent());
         model.addAttribute("totalPages",storyPage.getTotalPages());
