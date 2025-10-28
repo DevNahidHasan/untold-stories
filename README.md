@@ -13,6 +13,8 @@ A modern, secure Spring Boot & Thymeleaf web application for sharing anonymous s
 
 - **Browse All Stories**: View a dynamic, card-based feed of all shared stories from the community
 
+- **Pagination**: Efficiently browse through stories with pagination on homepage, search results, and user dashboard pages
+
 - **User Dashboard**: Personal dashboard to manage your profile and view your activity
 
 - **Complete Anonymity**: Posted stories are anonymous to the system - no direct link between user accounts and their stories in the database
@@ -204,19 +206,20 @@ The application uses H2 in-memory database by default. The database is automatic
 1. **Register**: Create a new account with your credentials (username, email, password)
 2. **Login**: Sign in with your registered username and password through the secure authentication system
 3. **Share Story Anonymously**: Navigate to "Post Story" page to share your personal experiences - your identity remains completely anonymous to the system and other users
-4. **Browse Stories**: View all anonymously shared stories from the community in a dynamic, card-based feed on the Stories page
-5. **Manage Your Stories**: Edit or delete your own anonymously posted stories - ownership is verified through secure hash identifiers while maintaining your anonymity
-6. **User Dashboard**: Access your personal dashboard to view your profile information and manage your account
-7. **Logout**: Securely logout when you're done - your session will be safely terminated
+4. **Browse Stories**: View all anonymously shared stories from the community in a dynamic, card-based feed on the Stories page with pagination for easy navigation
+5. **Search Stories**: Use the search functionality to find specific stories with paginated results
+6. **Manage Your Stories**: Edit or delete your own anonymously posted stories - ownership is verified through secure hash identifiers while maintaining your anonymity
+7. **User Dashboard**: Access your personal dashboard with pagination to view your profile information and manage your posted stories
+8. **Logout**: Securely logout when you're done - your session will be safely terminated
 
 
 ### 🎯 Future Enhancements:
 
 - [ ] Add categories/tags for stories
-- [ ] Implement story search and filtering
 - [ ] Add likes/reactions to stories
 - [ ] Enable story commenting (while maintaining anonymity)
 - [ ] Add story reporting functionality
+- [ ] Add PostgreSQL/MySQL support for production
 - [ ] Deploy to cloud platform
 
 [//]: # (## 🤝 Contributing)
@@ -239,7 +242,8 @@ The application uses H2 in-memory database by default. The database is automatic
 ## 🙏 Acknowledgments:
 
 - Built as a practice project to reinforce learning of Spring Boot MVC, Spring Security, and Thymeleaf
-- Special thanks to [Rezaur Rahman Sir](https://github.com/DevRezaur) for guidance and instruction
+- Special thanks to [Mr. Rezaur Rahman](https://github.com/DevRezaur) and [Mr. Ariful Haque](https://github.com/TheArifHoque) — my respected university seniors and mentors — for their invaluable guidance, instruction, and support throughout this project.
+
 
 ---
 
