@@ -38,8 +38,10 @@
 
         <label for="description">Description</label>
         <textarea th:field="*{description}" id="description" rows="8" required>  </textarea>
+        <input type="hidden" name="referer" th:value="${referer}" />
 
-<!--        <button type="submit" th:text="${mode} == 'edit' ? 'Update' : 'Submit'"></button>-->
+
+        <!--        <button type="submit" th:text="${mode} == 'edit' ? 'Update' : 'Submit'"></button>-->
         <button type="submit" th:text="${mode}"></button>
 
     </form>

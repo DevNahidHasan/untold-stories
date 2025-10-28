@@ -65,10 +65,6 @@ public class AppController {
 
         int totalPages = storyPage.getTotalPages();
 
-        if(page+1 > storyPage.getTotalPages()){
-            return "redirect:/";
-        }
-
         model.addAttribute("storyList",storyPage.getContent());
         model.addAttribute("totalPages",totalPages);
         model.addAttribute("currentPage",page);
@@ -76,6 +72,17 @@ public class AppController {
 
         if (httpServletRequest.isUserInRole("ADMIN")){
             model.addAttribute("isAdmin",true);
+        }
+
+//        if(page+1 > storyPage.getTotalPages()){
+//            return "redirect:/";
+//        }
+        if (totalPages == 0) {
+            return "home-page";
+        }
+
+        if(page+1 > storyPage.getTotalPages()){
+            return "redirect:/search?page="+ (totalPages-1) + "&searchQuery=" + searchQuery;
         }
 
         return "home-page";
@@ -150,18 +157,22 @@ public class AppController {
 //------------------------------------------------------------------------------------------
 // "edit story" "only for user" ,get and post controller
     @GetMapping("/user/story/{storyId}/edit")
-    public String editStory(@PathVariable UUID storyId, Model model){
+    public String editStory(@PathVariable UUID storyId,  @RequestHeader(value = "Referer", required = false) String referer,
+                            Model model){
 
         Story story = storyService.getStoryById(storyId);
         model.addAttribute("story",story);
         model.addAttribute("mode","UPDATE");
+        model.addAttribute("referer",referer);
 
         return "post-page";
 
     }
 
     @PostMapping("/user/story/{storyId}/edit")
-    public String doEditStory(@PathVariable UUID storyId, @ModelAttribute Story story, HttpServletRequest httpServletRequest){
+    public String doEditStory(@PathVariable UUID storyId, @ModelAttribute Story story,
+                              @RequestParam(value = "referer", required = false) String referer,
+                              HttpServletRequest httpServletRequest){
 
         String username = httpServletRequest.getUserPrincipal().getName();
         LocalDateTime currentTime = LocalDateTime.now();
@@ -170,6 +181,13 @@ public class AppController {
         story.setCreatedAt(currentTime);
 
         storyService.saveStory(story);
+
+        // Redirect back to the page the user came from
+        if (referer != null && !referer.isEmpty()) {
+            return "redirect:" + referer;
+        }
+
+        // Fallback is referer is missing
         return "redirect:/user/dashboard";
 
     }
