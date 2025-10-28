@@ -11,6 +11,8 @@ A modern, secure Spring Boot & Thymeleaf web application for sharing anonymous s
 
 - **Story Management**: Edit and delete your own anonymously posted stories while maintaining full anonymity
 
+- **Smart Navigation**: After editing or deleting a story, users are automatically redirected back to the page they came from for seamless user experience
+
 - **Browse All Stories**: View a dynamic, card-based feed of all shared stories from the community
 
 - **Pagination**: Efficiently browse through stories with pagination on homepage, search results, and user dashboard pages

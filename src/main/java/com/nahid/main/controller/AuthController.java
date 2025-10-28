@@ -16,6 +16,12 @@ public class AuthController {
 
     private final UserService userService;
 
+    /**
+     * Login Page- <br>
+     * Accessibility: Any types of visitors<br>
+     * Failure Url = "/login?error=true"<br>
+     * Default Success Url = "/dashboard"
+     */
     @GetMapping("/login")
     public String loginPage(@RequestParam @Nullable String error, @RequestParam @Nullable String logout, RedirectAttributes redirectAttributes){
         if(error!= null && error.equals("true")){
@@ -31,6 +37,10 @@ public class AuthController {
 
     }
 
+    /**
+     * Registration Page- <br>
+     * Accessibility: Any types of visitors <br>
+     */
     @GetMapping("/register")
     public String registrationPage(){
         return "registration-page";
@@ -48,13 +58,15 @@ public class AuthController {
         return "redirect:/register";
     }
 
+    /**
+     * Dashboard- <br>
+     * Redirects to Role Based Dashboard <br>
+     */
     @GetMapping("/dashboard")
     public String dashboardPage(HttpServletRequest httpServletRequest){
-//        System.out.println("In dashboard controller");
         if (httpServletRequest.isUserInRole("ADMIN")){
             return "redirect:/";
         }else if (httpServletRequest.isUserInRole("USER")){
-//            System.out.println("In else if");
             return "redirect:/user/dashboard";
         }
 

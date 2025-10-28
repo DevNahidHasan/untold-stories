@@ -22,7 +22,11 @@ public class AppController {
 
     private final StoryService storyService;
 
-// homepage for Admin and visitors.
+    /**
+     * Homepage- <br>
+     * Accessibility: Any types of visitors <br>
+     * Provides "Delete" feature for "ROLE_ADMIN"
+     */
     @GetMapping({"/","/home"})
     public String homePage(@RequestParam(defaultValue = "0") int page, Model model, HttpServletRequest httpServletRequest){
 
@@ -51,13 +55,14 @@ public class AppController {
         return "home-page";
     }
 
+    /**
+     * Search Story- <br>
+     * Accessibility: Any types of visitors <br>
+     * Provides "Delete" feature for "ROLE_ADMIN"
+     */
     @GetMapping("/search")
     public String searchStory(@RequestParam String searchQuery, @RequestParam(defaultValue = "0") int page,
                               Model model, HttpServletRequest httpServletRequest){
-//        List<Story> storyList = storyService.searchStoryByName(searchQuery);
-//        model.addAttribute("storyList",storyList);
-//        model.addAttribute("searchQuery",searchQuery);
-//        return "home-page";
 
         Pageable pageable = PageRequest.of(page, 4);
 
@@ -74,9 +79,6 @@ public class AppController {
             model.addAttribute("isAdmin",true);
         }
 
-//        if(page+1 > storyPage.getTotalPages()){
-//            return "redirect:/";
-//        }
         if (totalPages == 0) {
             return "home-page";
         }
@@ -86,25 +88,15 @@ public class AppController {
         }
 
         return "home-page";
-
-
-
     }
 
-//---------------------------------------------------------------------
-// "user dashboard" only for user
+    /**
+     * User Dashboard Page- <br>
+     * Accessibility: only to "ROLE_USER" <br>
+     * Provides "EDIT" and "Delete" feature for "ROLE_USER"
+     */
     @GetMapping("/user/dashboard")
     public String userDashboardPage(@RequestParam(defaultValue = "0") int page, Model model, HttpServletRequest httpServletRequest){
-
-        //System.out.println("in user dashboard controller");
-//        String username = httpServletRequest.getUserPrincipal().getName();
-//
-//        List<Story> storyList = storyService.searchStoryByUser(username);
-//
-//        model.addAttribute("storyList",storyList);
-//        return "user-dashboard-page";
-
-//        System.out.println("within user dashboard");
 
         String username = httpServletRequest.getUserPrincipal().getName();
 
@@ -113,8 +105,6 @@ public class AppController {
         Page<Story> storyPage = storyService.searchStoryByUserPageable(username, pageable);
 
         int totalPages = storyPage.getTotalPages();
-
-
 
         model.addAttribute("storyList",storyPage.getContent());
         model.addAttribute("totalPages",totalPages);
@@ -134,8 +124,11 @@ public class AppController {
     }
 
 
-//------------------------------------------------------------------------------------
-// "Share story and save" "only for user" get controller and post controller
+
+    /**
+     * Share story and Save Story to database- <br>
+     * Accessibility: only to "ROLE_USER" <br>
+     */
     @GetMapping("/user/story")
     public String postStoryPage(Model model){
         model.addAttribute("story",new Story());
@@ -154,8 +147,11 @@ public class AppController {
         storyService.saveStory(story);
         return "redirect:/user/dashboard";
     }
-//------------------------------------------------------------------------------------------
-// "edit story" "only for user" ,get and post controller
+
+    /**
+     * Edit story and Save Edite Story to database- <br>
+     * Accessibility: only to "ROLE_USER" <br>
+     */
     @GetMapping("/user/story/{storyId}/edit")
     public String editStory(@PathVariable UUID storyId,  @RequestHeader(value = "Referer", required = false) String referer,
                             Model model){
@@ -187,43 +183,43 @@ public class AppController {
             return "redirect:" + referer;
         }
 
-        // Fallback is referer is missing
+        // Fallback if referer is missing
         return "redirect:/user/dashboard";
 
     }
-//--------------------------------------------------------------------
-// "delete story"  for both user and admin
+
+    /**
+     * Delete story - <br>
+     * Accessibility: only to "ROLE_USER" and "ROLE_ADMIN <br>
+     */
     @PostMapping("/story/{storyId}/delete")
     public String deleteStory(@PathVariable UUID storyId, HttpServletRequest httpServletRequest,
                               @RequestHeader(value = "Referer", required = false) String referer){
         storyService.deleteStoryById(storyId);
 
         if (httpServletRequest.isUserInRole("USER")){
+            // Redirect back to the page the user came from
             if (referer != null && !referer.isEmpty()) {
                 return "redirect:" + referer;
             }
-            else {
+            else {// Fallback if referer is missing
                 return "redirect:/user/dashboard";
             }
 
         }else {
+            // Redirect back to the page the Admin came from
             if (referer != null && !referer.isEmpty()) {
                 return "redirect:" + referer;
-            }
+            }// Fallback if referer is missing
             return "redirect:/";
         }
 
-//        if (httpServletRequest.isUserInRole("ADMIN")){
-//            return "redirect:/";
-//        }else if (httpServletRequest.isUserInRole("USER")){
-//            System.out.println("In else if");
-//            return "redirect:/user-dashboard";
-//        }
-//        return "redirect:/";
     }
 
-//--------------------------------------------------------------------------
-// "see full story" for everyone
+    /**
+     * See Full Story- <br>
+     * Accessibility: Any types of visitors <br>
+     */
     @GetMapping("/story/{storyId}")
     public String storyDetails(@PathVariable UUID storyId, Model model){
         Story story = storyService.getStoryById(storyId);

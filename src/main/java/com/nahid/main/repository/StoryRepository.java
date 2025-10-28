@@ -10,7 +10,6 @@ import java.util.UUID;
 
 public interface StoryRepository extends JpaRepository<Story, UUID> {
 
-//TODO - ContainingIgnoreCase
     List<Story> findStoriesByStoryForContainingIgnoreCase(String storyFor);
 
     Page<Story> findStoriesByStoryForContainingIgnoreCase(String storyFor, Pageable pageable);

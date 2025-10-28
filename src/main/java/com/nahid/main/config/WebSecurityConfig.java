@@ -22,13 +22,6 @@ public class WebSecurityConfig {
 
     private final CustomUserDetailsService customUserDetailsService;
 
-//    @Bean
-//    public TextEncryptor textEncryptor(
-//            @Value("${encryption.password}") String password,
-//            @Value("${encryption.salt}") String salt) {
-//        return Encryptors.queryableText(password, salt);  // Change this line
-//    }
-
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -37,9 +30,9 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
-                .csrf(AbstractHttpConfigurer::disable)
-                .headers(headerConfigurer -> headerConfigurer
-                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
+//                .csrf(AbstractHttpConfigurer::disable)
+//                .headers(headerConfigurer -> headerConfigurer
+//                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
 
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/user/**").hasAnyAuthority("ROLE_USER")
@@ -60,5 +53,12 @@ public class WebSecurityConfig {
 
                 .build();
     }
+
+    //    @Bean
+//    public TextEncryptor textEncryptor(
+//            @Value("${encryption.password}") String password,
+//            @Value("${encryption.salt}") String salt) {
+//        return Encryptors.queryableText(password, salt);  // Change this line
+//    }
 
 }

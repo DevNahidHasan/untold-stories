@@ -22,8 +22,10 @@ public class HashUtil {
             Mac hmac = Mac.getInstance("HmacSHA256");
             SecretKeySpec keySpec = new SecretKeySpec(secretKey.getBytes(), "HmacSHA256");
             hmac.init(keySpec);
+
             byte[] hash = hmac.doFinal(data.getBytes());
             return Base64.getEncoder().encodeToString(hash);
+
         } catch (Exception e) {
             throw new RuntimeException("Hashing failed", e);
         }
