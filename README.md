@@ -2,32 +2,52 @@
 
 A modern, secure Spring Boot & Thymeleaf web application for sharing anonymous student stories. This project provides a safe, anonymous platform where students can share their personal experiences, challenges, and reflections from university life. Built with Spring Security for authentication, Spring Data JPA for object-relational mapping, and H2 database for lightweight data persistence.
 
-### ✨ Features
+---
+### ✨ Features-
 
 - **User Registration & Authentication**: Secure registration and login system with password encryption
+
 - **Share Stories Anonymously**: Post personal experiences and stories without revealing your identity to other users or the system
+
 - **Story Management**: Edit and delete your own anonymously posted stories while maintaining full anonymity
+
 - **Browse All Stories**: View a dynamic, card-based feed of all shared stories from the community
+
 - **User Dashboard**: Personal dashboard to manage your profile and view your activity
+
 - **Complete Anonymity**: Posted stories are anonymous to the system - no direct link between user accounts and their stories in the database
+
 - **Security**: Built-in Spring Security with password hashing for secure authentication
+
 - **Responsive Design**: Clean, modern UI that works seamlessly on desktop and mobile devices
+
 - **Session Management**: Secure session handling with logout functionality
 
-### 🔐 Security Features
+---
+
+### 🔐 Security Features-
 
 - **Password Encryption**: Secure password storage using industry-standard hashing algorithms (BCrypt) to protect user credentials
+
 - **Authentication & Authorization**: Spring Security integration for robust user authentication and role-based access control
+
 - **CSRF Protection**: Built-in Cross-Site Request Forgery protection for all state-changing operations
+
 - **Session Management**: Secure HTTP session handling with automatic timeout and invalidation on logout
+
 - **Secure Endpoints**: Role-based access control ensuring users can only access authorized resources
+
 - **Story Anonymity**: Stories are completely anonymous to the system - no direct database relationship between users and their posted stories
+
 - **Story Ownership via Hash**: Stories are linked to users through secure, one-way hash identifiers (using HashUtil), allowing edit/delete functionality while maintaining anonymity
+
 - **SQL Injection Prevention**: Parameterized queries through JPA to prevent SQL injection attacks
 
 [//]: # (- **Input Validation**: Server-side validation of all user inputs to prevent malicious data entry)
 
-### 📂 Project Structure
+---
+
+### 📂 Project Structure-
 
 ```
 untold-stories/
@@ -80,8 +100,9 @@ untold-stories/
 ├── build.gradle
 └── README.md
 ```
+---
 
-### 📸 Screenshots
+### 📸 Screenshots-
 
 **Homepage:**
 
@@ -111,7 +132,9 @@ untold-stories/
 
 ![User Dashboard](src/main/resources/static/images/user-dashboard.png)
 
-### 🛠️ Technologies Used
+---
+
+### 🛠️ Technologies Used-
 
 - **Java 21**
 - **Spring Boot 3.5.6**
@@ -125,14 +148,14 @@ untold-stories/
 - **Gradle** (Build tool)
 - **HTML5 & CSS3**
 
-## 🚀 Getting Started
+## 🚀 Getting Started-
 
-### Prerequisites
+### Prerequisites:
 
 - Java 21 or higher
 - Gradle (or use the included Gradle wrapper)
 
-### Installation
+### Installation:
 
 1. **Clone the repository:**
    ```bash
@@ -161,7 +184,7 @@ untold-stories/
 4. **Access the application:**
    Open your browser and navigate to: `http://localhost:8080`
 
-### Database Configuration
+### Database Configuration:
 
 The application uses H2 in-memory database by default. The database is automatically initialized with sample data from `data.sql`.
 
@@ -171,7 +194,7 @@ The application uses H2 in-memory database by default. The database is automatic
 - Username: (check `application.properties`)
 - Password: (check `application.properties`)
 
-### 📋 Usage
+### 📋 Usage:
 
 1. **Register**: Create a new account with your credentials (username, email, password)
 2. **Login**: Sign in with your registered username and password through the secure authentication system
@@ -182,7 +205,7 @@ The application uses H2 in-memory database by default. The database is automatic
 7. **Logout**: Securely logout when you're done - your session will be safely terminated
 
 
-### 🎯 Future Enhancements
+### 🎯 Future Enhancements:
 
 - [ ] Add categories/tags for stories
 - [ ] Implement story search and filtering
@@ -202,13 +225,13 @@ The application uses H2 in-memory database by default. The database is automatic
 [//]: # ()
 [//]: # (This project is for educational purposes and is part of a Spring Boot learning journey.)
 
-### 👤 Author
+### 👤 Author:
 
 **S M Nahid Hasan**
 
 - GitHub: [DevNahidHasan](https://github.com/DevNahidHasan)
 
-### 🙏 Acknowledgments
+### 🙏 Acknowledgments:
 
 - Built as a practice project to reinforce learning of Spring Boot MVC, Spring Security, and Thymeleaf
 - Special thanks to [Rezaur Rahman Sir](https://github.com/DevRezaur) for guidance and instruction
