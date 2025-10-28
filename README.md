@@ -104,9 +104,30 @@ untold-stories/
 
 ### 📸 Screenshots-
 
-**Homepage:**
+**Homepage/Stories Feed:**
 
-![Homepage](src/main/resources/static/images/homepage.png)
+![Homepage](src/main/resources/static/images/stories%20feed.png)
+
+[//]: # (**Stories Feed:**)
+
+[//]: # ()
+[//]: # (![All Stories]&#40;src/main/resources/static/images/user-dashboard-page.png&#41;)
+
+**User Dashboard:**
+
+![User Dashboard](src/main/resources/static/images/user-dashboard-page.png)
+
+**Share Story Page:**
+
+![Post Story](src/main/resources/static/images/share-story.png)
+
+**Edit Story Page:**
+
+![Post Story](src/main/resources/static/images/edit-story.png)
+
+**Admin Dashboard:**
+
+![Admin Dashboard](src/main/resources/static/images/admin-page.png)
 
 **Login Page:**
 
@@ -114,23 +135,7 @@ untold-stories/
 
 **Registration Page:**
 
-![Registration Page](src/main/resources/static/images/registration-page.png)
-
-**Share Story Page:**
-
-![Post Story](src/main/resources/static/images/post-story-page.png)
-
-**Stories Feed:**
-
-![All Stories](src/main/resources/static/images/stories-feed.png)
-
-**User Dashboard:**
-
-![User Dashboard](src/main/resources/static/images/user-dashboard.png)
-
-**Admin Dashboard:**
-
-![User Dashboard](src/main/resources/static/images/user-dashboard.png)
+![Registration Page](src/main/resources/static/images/signup-page.png)
 
 ---
 
