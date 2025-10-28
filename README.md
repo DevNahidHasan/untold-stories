@@ -2,8 +2,8 @@
 
 A modern, secure Spring Boot & Thymeleaf web application for sharing anonymous student stories. This project provides a safe, anonymous platform where students can share their personal experiences, challenges, and reflections from university life. Built with Spring Security for authentication, Spring Data JPA for object-relational mapping, and H2 database for lightweight data persistence.
 
----
-### ✨ Features-
+
+## ✨ Features-
 
 - **User Registration & Authentication**: Secure registration and login system with password encryption
 
@@ -23,9 +23,9 @@ A modern, secure Spring Boot & Thymeleaf web application for sharing anonymous s
 
 - **Session Management**: Secure session handling with logout functionality
 
----
 
-### 🔐 Security Features-
+
+## 🔐 Security Features-
 
 - **Password Encryption**: Secure password storage using industry-standard hashing algorithms (BCrypt) to protect user credentials
 
@@ -45,9 +45,9 @@ A modern, secure Spring Boot & Thymeleaf web application for sharing anonymous s
 
 [//]: # (- **Input Validation**: Server-side validation of all user inputs to prevent malicious data entry)
 
----
 
-### 📂 Project Structure-
+
+## 📂 Project Structure-
 
 ```
 untold-stories/
@@ -100,9 +100,9 @@ untold-stories/
 ├── build.gradle
 └── README.md
 ```
----
 
-### 📸 Screenshots-
+
+## 📸 Screenshots-
 
 **Homepage/Stories Feed:**
 
@@ -137,9 +137,9 @@ untold-stories/
 
 ![Registration Page](src/main/resources/static/images/signup-page.png)
 
----
 
-### 🛠️ Technologies Used-
+
+## 🛠️ Technologies Used-
 
 - **Java 21**
 - **Spring Boot 3.5.6**
@@ -230,13 +230,13 @@ The application uses H2 in-memory database by default. The database is automatic
 [//]: # ()
 [//]: # (This project is for educational purposes and is part of a Spring Boot learning journey.)
 
-### 👤 Author:
+## 👤 Author:
 
 **S M Nahid Hasan**
 
 - GitHub: [DevNahidHasan](https://github.com/DevNahidHasan)
 
-### 🙏 Acknowledgments:
+## 🙏 Acknowledgments:
 
 - Built as a practice project to reinforce learning of Spring Boot MVC, Spring Security, and Thymeleaf
 - Special thanks to [Rezaur Rahman Sir](https://github.com/DevRezaur) for guidance and instruction
