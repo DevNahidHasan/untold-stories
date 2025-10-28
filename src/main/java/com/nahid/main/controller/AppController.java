@@ -26,7 +26,7 @@ public class AppController {
     @GetMapping({"/","/home"})
     public String homePage(@RequestParam(defaultValue = "0") int page, Model model, HttpServletRequest httpServletRequest){
 
-        Pageable pageable = PageRequest.of(page, 3);
+        Pageable pageable = PageRequest.of(page, 4);
 
         Page<Story> storyPage = storyService.getStories(pageable);
 
@@ -59,7 +59,7 @@ public class AppController {
 //        model.addAttribute("searchQuery",searchQuery);
 //        return "home-page";
 
-        Pageable pageable = PageRequest.of(page, 3);
+        Pageable pageable = PageRequest.of(page, 4);
 
         Page<Story> storyPage = storyService.searchStoryByNamePageable(searchQuery,pageable);
 
@@ -101,7 +101,7 @@ public class AppController {
 
         String username = httpServletRequest.getUserPrincipal().getName();
 
-        Pageable pageable = PageRequest.of(page, 3);
+        Pageable pageable = PageRequest.of(page, 4);
 
         Page<Story> storyPage = storyService.searchStoryByUserPageable(username, pageable);
 
@@ -180,13 +180,6 @@ public class AppController {
                               @RequestHeader(value = "Referer", required = false) String referer){
         storyService.deleteStoryById(storyId);
 
-//        if (httpServletRequest.isUserInRole("ADMIN")){
-//            return "redirect:/";
-//        }else if (httpServletRequest.isUserInRole("USER")){
-//            System.out.println("In else if");
-//            return "redirect:/user-dashboard";
-//        }
-
         if (httpServletRequest.isUserInRole("USER")){
             if (referer != null && !referer.isEmpty()) {
                 return "redirect:" + referer;
@@ -202,6 +195,12 @@ public class AppController {
             return "redirect:/";
         }
 
+//        if (httpServletRequest.isUserInRole("ADMIN")){
+//            return "redirect:/";
+//        }else if (httpServletRequest.isUserInRole("USER")){
+//            System.out.println("In else if");
+//            return "redirect:/user-dashboard";
+//        }
 //        return "redirect:/";
     }
 

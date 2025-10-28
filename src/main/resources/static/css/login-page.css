@@ -50,6 +50,7 @@ h1 {
 
 #login-form button:hover {
     opacity: 0.8;
+    cursor: pointer;
 }
 
 #register-link {
